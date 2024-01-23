@@ -1,10 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:planbu_operator_app/screens/dashboard_screen.dart';
-import 'package:planbu_operator_app/screens/messages_screen.dart';
-import 'package:planbu_operator_app/screens/jobs_screen.dart';
-import 'package:planbu_operator_app/screens/practice_screen.dart';
-
-import '../screens/current_job_screen.dart';
 
 class MainDrawer extends StatefulWidget {
   const MainDrawer({
