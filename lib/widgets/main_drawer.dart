@@ -42,12 +42,14 @@ class _MainDrawerState extends State<MainDrawer> {
                   selectedTileColor:
                       Theme.of(context).colorScheme.primaryContainer,
                   selected: index == widget.selectedIndex, // true/false check
-                  leading: Icon(item['icon']),
+                  leading: Container(
+                    width: 30,
+                    height: 30,
+                    child: item['icon'],
+                  ),
                   title: Text(item['title']),
                   onTap: () {
                     widget.onItemTapped(index);
-                    print(index);
-                    print(widget.selectedIndex);
 
                     // To Home
                   },

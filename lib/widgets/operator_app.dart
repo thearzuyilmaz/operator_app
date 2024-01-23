@@ -25,24 +25,40 @@ class _OperatorAppState extends State<OperatorApp> {
   }
 
   final List drawerItems = [
-    {'icon': Icons.home_filled, 'title': 'Jobs', 'screen': const JobsScreen()},
     {
-      'icon': Icons.play_arrow_rounded,
-      'title': 'Current Job',
-      'screen': const CurrentJobScreen()
+      'icon': Image.asset('images/icon-jobs.png', color: Colors.white),
+      'title': 'Jobs',
+      'screen': const JobsScreen()
     },
     {
-      'icon': Icons.dashboard,
+      'icon': Image.asset(
+        'images/icon-current-job.png',
+        color: Colors.white,
+      ),
+      'title': 'Current Job',
+      'screen': const CurrentJobScreen(),
+    },
+    {
+      'icon': Image.asset(
+        'images/icon-dashboard.png',
+        color: Colors.white,
+      ),
       'title': 'Dashboard',
       'screen': const DashboardScreen()
     },
     {
-      'icon': Icons.messenger_rounded,
+      'icon': Image.asset(
+        'images/icon-messages.png',
+        color: Colors.white,
+      ),
       'title': 'Messages',
       'screen': const MessagesScreen()
     },
     {
-      'icon': Icons.video_call_rounded,
+      'icon': Image.asset(
+        'images/icon-practice.png',
+        color: Colors.white,
+      ),
       'title': 'Practice',
       'screen': const PracticeScreen()
     },
