@@ -24,10 +24,10 @@ class _MainDrawerState extends State<MainDrawer> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 60, horizontal: 20),
-            child: Container(
-              width: 180,
-              height: 60,
+            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+            child: DrawerHeader(
+              duration: const Duration(milliseconds: 500),
+              padding: const EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 0),
               child: Image.asset('images/planbu_logo.png'),
             ),
           ),
