@@ -17,13 +17,13 @@ class JobsScreen extends StatelessWidget {
           child: Center(
             child: ListView.builder(
               itemCount: 10,
-              padding: const EdgeInsets.only(top: 120),
+              padding: const EdgeInsets.only(top: 40),
               itemBuilder: (context, index) => Container(
                 height: 100,
                 width: containerWidth,
                 margin: const EdgeInsets.only(bottom: 20, right: 20, left: 20),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(24),
+                  borderRadius: BorderRadius.circular(12),
                   // color: Theme.of(context).canvasColor,
                   boxShadow: const [BoxShadow()],
                 ),

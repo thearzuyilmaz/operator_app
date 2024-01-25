@@ -133,7 +133,11 @@ class _OperatorAppState extends State<OperatorApp> {
                             height: 24,
                             child: item['icon'],
                           ),
-                          title: Text(item['title']),
+                          title: Text(
+                            item['title'],
+                            style: TextStyle(
+                                color: Theme.of(context).primaryColorLight),
+                          ),
                           onTap: () {
                             _setIndex(index);
                           },
@@ -142,6 +146,34 @@ class _OperatorAppState extends State<OperatorApp> {
                     ),
                   ),
                 ],
+              ),
+            ),
+            Expanded(
+              child: Scaffold(
+                appBar: AppBar(
+                  surfaceTintColor: Theme.of(context).primaryColor,
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(20),
+                      bottomRight: Radius.circular(20),
+                    ),
+                  ),
+                  actions: const [
+                    Padding(
+                        padding: EdgeInsets.only(right: 20),
+                        child: CircleAvatar(
+                          radius: 20,
+                          backgroundImage:
+                              AssetImage('images/Arzu_Profile.png'),
+                        )),
+                  ],
+                  title: Text(
+                    drawerItems[_selectedIndex]['title'],
+                    style:
+                        TextStyle(color: Theme.of(context).primaryColorLight),
+                  ),
+                ),
+                body: drawerItems[_selectedIndex]['screen'],
               ),
             ),
           ],
