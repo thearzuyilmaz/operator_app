@@ -7,7 +7,9 @@ final theme = ThemeData(
   useMaterial3: true,
   colorScheme: ColorScheme.fromSeed(
     brightness: Brightness.dark,
-    seedColor: const Color(0xFF4736AB),
+    primary: const Color(0xFF6E57FF),
+    secondary: const Color(0xFFDB2291),
+    seedColor: const Color(0xFF6E57FF),
   ),
   textTheme: GoogleFonts.robotoTextTheme(),
 );

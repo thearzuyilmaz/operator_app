@@ -20,6 +20,7 @@ class OperatorApp extends StatefulWidget {
 class _OperatorAppState extends State<OperatorApp> {
   int _selectedIndex = 0;
   final _key = GlobalKey<ScaffoldState>();
+  double widthContainer = 100;
 
   void _setIndex(int index) {
     setState(() {
@@ -75,110 +76,102 @@ class _OperatorAppState extends State<OperatorApp> {
   Widget build(BuildContext context) {
     final isSmallScreen = MediaQuery.of(context).size.width < 600;
 
-    if (isSmallScreen) {
-      return Scaffold(
-        key: _key,
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          title: Text(
-            drawerItems[_selectedIndex]['title'],
-            style: const TextStyle(color: Colors.white),
-          ),
-          leading: IconButton(
-            onPressed: () {
-              _key.currentState?.openDrawer();
-            },
-            icon: const Icon(Icons.menu),
-          ),
-        ),
-        drawer: MainDrawer(
-          selectedIndex: _selectedIndex,
-          onItemTapped: _setIndex,
-          drawerItems: drawerItems,
-        ),
-        body: drawerItems[_selectedIndex]['screen'],
-      );
+    Widget sidebar = Column(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: drawerItems.map((item) {
+        final index = drawerItems.indexOf(item);
 
-      // For larger screens, show a persistent sidebar
-    } else {
-      return Scaffold(
-        body: Row(
-          children: [
-            Container(
-              width: 250,
-              decoration: BoxDecoration(
-                color: Theme.of(context).primaryColorDark.withOpacity(0.3),
-                borderRadius: const BorderRadius.only(
-                  topRight: Radius.circular(20),
-                  bottomRight: Radius.circular(20),
-                ),
-              ),
-              child: Column(
-                children: [
-                  const SizedBox(height: 100),
-                  Expanded(
-                    child: ListView.builder(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      itemCount: drawerItems.length,
-                      itemBuilder: (context, index) {
-                        final item = drawerItems[index];
-
-                        return ListTile(
-                          selectedTileColor:
-                              Theme.of(context).colorScheme.primaryContainer,
-                          selected: index == _selectedIndex, // true/false check
-                          leading: Container(
-                            width: 24,
-                            height: 24,
-                            child: item['icon'],
-                          ),
-                          title: Text(
-                            item['title'],
-                            style: TextStyle(
-                                color: Theme.of(context).primaryColorLight),
-                          ),
-                          onTap: () {
-                            _setIndex(index);
-                          },
-                        );
-                      },
-                    ),
+        return InkWell(
+          customBorder: const CircleBorder(),
+          splashColor: Theme.of(context).colorScheme.primary.withOpacity(0.3),
+          onTap: () {
+            _setIndex(index);
+          },
+          child: index == _selectedIndex
+              ? ShaderMask(
+                  shaderCallback: (Rect bounds) {
+                    return LinearGradient(
+                      colors: [
+                        Theme.of(context).colorScheme.primary,
+                        Theme.of(context).colorScheme.secondary,
+                      ], // Change colors as needed
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                    ).createShader(bounds);
+                  },
+                  child: SizedBox(
+                    height: 32,
+                    width: 32,
+                    child: item['icon'],
                   ),
+                )
+              : SizedBox(
+                  height: 32,
+                  width: 32,
+                  child: item['icon'],
+                ),
+        );
+      }).toList(),
+    );
+
+    return Scaffold(
+      body: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            width: widthContainer,
+            decoration: BoxDecoration(
+              color: Theme.of(context).primaryColorDark.withOpacity(0.3),
+              borderRadius: const BorderRadius.only(
+                topRight: Radius.circular(20),
+                bottomRight: Radius.circular(20),
+              ),
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 30.0),
+                  child: CircleAvatar(
+                    radius: 20,
+                    child: Image.asset('images/planbu-logo-circle.png'),
+                  ),
+                ),
+                Expanded(child: sidebar),
+              ],
+            ),
+          ),
+          Expanded(
+            child: Scaffold(
+              appBar: AppBar(
+                surfaceTintColor: Theme.of(context).primaryColor,
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(20),
+                    bottomRight: Radius.circular(20),
+                  ),
+                ),
+                actions: const [
+                  Padding(
+                      padding: EdgeInsets.only(right: 20),
+                      child: CircleAvatar(
+                        radius: 20,
+                        backgroundImage: AssetImage('images/Arzu_Profile.png'),
+                      )),
                 ],
-              ),
-            ),
-            Expanded(
-              child: Scaffold(
-                appBar: AppBar(
-                  surfaceTintColor: Theme.of(context).primaryColor,
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(20),
-                      bottomRight: Radius.circular(20),
-                    ),
-                  ),
-                  actions: const [
-                    Padding(
-                        padding: EdgeInsets.only(right: 20),
-                        child: CircleAvatar(
-                          radius: 20,
-                          backgroundImage:
-                              AssetImage('images/Arzu_Profile.png'),
-                        )),
-                  ],
-                  title: Text(
-                    drawerItems[_selectedIndex]['title'],
-                    style:
-                        TextStyle(color: Theme.of(context).primaryColorLight),
-                  ),
+                title: Text(
+                  drawerItems[_selectedIndex]['title'],
+                  style: TextStyle(color: Theme.of(context).primaryColorLight),
                 ),
-                body: drawerItems[_selectedIndex]['screen'],
               ),
+              body: drawerItems[_selectedIndex]['screen'],
             ),
-          ],
-        ),
-      );
-    }
+          ),
+        ],
+      ),
+    );
   }
 }
