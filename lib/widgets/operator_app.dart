@@ -19,17 +19,15 @@ class OperatorApp extends StatefulWidget {
 
 class _OperatorAppState extends State<OperatorApp> {
   int _selectedIndex = 0;
-  final _key = GlobalKey<ScaffoldState>();
   double widthContainer = 100;
 
   void _setIndex(int index) {
     setState(() {
       _selectedIndex = index;
     });
-    // Navigator.of(context).pop(); // Close the drawer
   }
 
-  final List drawerItems = [
+  final List sidebarItems = [
     {
       'icon': Image.asset(
         'images/icon-jobs.png',
@@ -74,17 +72,17 @@ class _OperatorAppState extends State<OperatorApp> {
 
   @override
   Widget build(BuildContext context) {
-    final isSmallScreen = MediaQuery.of(context).size.width < 600;
+    // final isSmallScreen = MediaQuery.of(context).size.width < 600; // use when needed
 
     Widget sidebar = Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: drawerItems.map((item) {
-        final index = drawerItems.indexOf(item);
+      children: sidebarItems.map((item) {
+        final index = sidebarItems.indexOf(item);
 
         return InkWell(
           customBorder: const CircleBorder(),
-          splashColor: Theme.of(context).colorScheme.primary.withOpacity(0.3),
+          splashColor: Theme.of(context).colorScheme.primary.withOpacity(0.6),
           onTap: () {
             _setIndex(index);
           },
@@ -96,7 +94,7 @@ class _OperatorAppState extends State<OperatorApp> {
                         Theme.of(context).colorScheme.primary,
                         Theme.of(context).colorScheme.secondary,
                       ], // Change colors as needed
-                      begin: Alignment.topLeft,
+                      begin: Alignment.topCenter,
                       end: Alignment.bottomRight,
                     ).createShader(bounds);
                   },
@@ -120,6 +118,7 @@ class _OperatorAppState extends State<OperatorApp> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          //sidebar
           Container(
             width: widthContainer,
             decoration: BoxDecoration(
@@ -144,6 +143,7 @@ class _OperatorAppState extends State<OperatorApp> {
               ],
             ),
           ),
+          //screen
           Expanded(
             child: Scaffold(
               appBar: AppBar(
@@ -163,11 +163,11 @@ class _OperatorAppState extends State<OperatorApp> {
                       )),
                 ],
                 title: Text(
-                  drawerItems[_selectedIndex]['title'],
+                  sidebarItems[_selectedIndex]['title'],
                   style: TextStyle(color: Theme.of(context).primaryColorLight),
                 ),
               ),
-              body: drawerItems[_selectedIndex]['screen'],
+              body: sidebarItems[_selectedIndex]['screen'],
             ),
           ),
         ],

@@ -9,6 +9,7 @@ final theme = ThemeData(
     brightness: Brightness.dark,
     primary: const Color(0xFF6E57FF),
     secondary: const Color(0xFFDB2291),
+    tertiary: const Color(0xFF411FFF),
     seedColor: const Color(0xFF6E57FF),
   ),
   textTheme: GoogleFonts.robotoTextTheme(),
